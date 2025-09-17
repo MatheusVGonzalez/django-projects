@@ -1,0 +1,36 @@
+{% extends "master.html" %}
+{% block title %}
+    MEMBERS
+{% endblock title %}
+{% block content %}
+<div class="row justify-content-start align-items-start g-2">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table table-secondary">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                    <tr>
+                        <td>{{member.fname}} {{member.lname}}</td>
+                        <td>{{member.email}}</td>
+                        <td>{{member.phone}}</td>
+                        <td><a class="btn btn-primary" href="details/{{member.id}}" role="button">Details</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+    
+{% endblock content %}

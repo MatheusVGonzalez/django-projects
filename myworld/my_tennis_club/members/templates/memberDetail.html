@@ -1,0 +1,24 @@
+{% extends "master.html" %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-start align-items-start g-2">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{member.fname}} {{member.lname}}</h4>
+                <p class="card-text">
+                    <h5>Email {{member.email}}</h5>
+                    <h5>Phone {{member.phone}}</h5>
+                    <h5>Phone {{member.join_date}}</h5>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    
+{% endblock content %}

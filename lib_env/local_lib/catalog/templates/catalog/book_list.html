@@ -23,16 +23,38 @@
             </thead>
             <tbody>
                 {% for book in book_list %}
-                <tr class="">
-                    <td><a href="{{book.get_absolute_url}}">{{book.title}}</a></td>
-                    <td>{{book.author}}</td>
-                    <td>{{book.display_genre}}</td>
-                    <td>{{book.language}}</td>
-                    <td>{{book.isbn}}</td>
-                </tr>
+                    <tr class="">
+                        <td><a href="{{book.get_absolute_url}}">{{book.title}}</a></td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.display_genre}}</td>
+                        <td>{{book.language}}</td>
+                        <td>{{book.isbn}}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    
+    {% if selectedBook %}
+        <div class="modal fade" id="book-detail">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            Book Details
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <h1>{{selectedBook.title}}</h1>
+                        <p>{{selectedBook.author}}</p>
+                        <p>{{selectedBook.display_genre}}</p>
+                        <p>{{selectedBook.language}}</p>
+                        <p>{{selectedBook.isbn}}</p>
+                        <p>{{selectedBook.summary}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock content %}

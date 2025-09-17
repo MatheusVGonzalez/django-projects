@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>{% block title %}{% endblock title %}</title>
-        
+        {% load static %}
+        <title>
+            {% block title %}{% endblock title %}
+        </title>
+        <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
             name="viewport"
@@ -23,7 +26,7 @@
             <!-- place navbar here -->
         </header>
         <main class="container-fluid">
-            {% block content %}{% endblock content %}
+            {% block content %}{% endblock content %}            
         </main>
         <footer>
             {% block footer %}{% endblock footer %}
@@ -40,5 +43,6 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <script src="{% static "catalog.js" %}"></script>
     </body>
 </html>

@@ -29,3 +29,30 @@ class BookView(generic.ListView):
         if(self.kwargs):
             context['selectedBook'] = Book.objects.filter(id=self.kwargs['pk']).first()
         return context  
+    
+class AuthorView(generic.ListView):
+    model = Author
+    queryset = Author.objects.all()
+    context_object_name = "author_list"
+    template_name = "templates/author_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(AuthorView,self).get_context_data(**kwargs)
+        if(self.kwargs):
+            context['selectedAuthor'] = Author.objects.filter(id=self.kwargs['pk']).first()
+        return context  
+    
+def author_list(request):
+    authors = Author.objects.all()
+    selected_author_id = request.GET.get('author_id')
+    selected_author = None
+    books = []
+    if selected_author_id:
+        selected_author = Author.objects.get(id=selected_author_id)
+        books = Book.objects.filter(author=selected_author)
+    return render(request, 'catalog/author_list.html', {
+        'author_list': authors,
+        'selectedAuthor': selected_author,
+        'books': books,
+        'newVariable': 'List of Authors'
+    })

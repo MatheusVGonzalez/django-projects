@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views import generic
 from .models import *
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
+from .forms import *
+from django.contrib import messages
 def Index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
@@ -30,7 +34,7 @@ class BookView(generic.ListView):
             context['selectedBook'] = Book.objects.filter(id=self.kwargs['pk']).first()
         return context  
     
-class AuthorView(generic.ListView):
+class AuthorView(LoginRequiredMixin,generic.ListView):
     model = Author
     queryset = Author.objects.all()
     context_object_name = "author_list"
@@ -56,3 +60,18 @@ def author_list(request):
         'books': books,
         'newVariable': 'List of Authors'
     })
+
+def Logout(request):
+    logout(request)
+    return redirect("/")
+
+
+class BookInstanceView(generic.CreateView):
+    model = BookInstance
+    form_class = BookInstanceForm
+    template_name = "books/bookinstance_form.html"
+    success_url = reverse_lazy("books")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Book copy added.")
+        return super().form_valid(form)

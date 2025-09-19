@@ -23,7 +23,11 @@
 
     <body>
         <header>
-            <!-- place navbar here -->
+            {% if user.is_authenticated %}
+                <a href="/logout/">Logout</a>
+            {% else %}
+                <a href="/logout/">Login</a>
+            {% endif %}
         </header>
         <main class="container-fluid">
             {% block content %}{% endblock content %}            

@@ -5,7 +5,9 @@
 {% block content %}
     <div class="row justify-content-center align-items-center g-2">
         <div class="col">
-            <h1>Welcome to your local library</h1>
+            <h1>Welcome {% if user.is_authenticated %}
+                {{user.first_name}} {{user.last_name}}
+            {% endif %} to your local library</h1>
             <div
                 class="table-responsive"
             >
@@ -30,7 +32,6 @@
                     </tbody>
                 </table>
             </div>
-            
         </div>
     </div>
     

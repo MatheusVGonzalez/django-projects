@@ -23,15 +23,44 @@
 
     <body>
         <header>
-            {% if user.is_authenticated %}
-                <a href="/logout/">Logout</a>
-            {% else %}
-                <a href="/logout/">Login</a>
-            {% endif %}
+            {% for p in NAV_PAGES %}
+                <a href="{{p.url}}" class="">{{p.label}}</a>
+            {% endfor %}
         </header>
         <main class="container-fluid">
             {% block content %}{% endblock content %}            
         </main>
+        {% if modalTitle %}
+        <div class="modal fade" id="modal-detail">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">
+                            {{modalTitle}}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        {% for item,val in modalBody.get_info_data %}
+                            {% if item == "collection" %}
+                                {% for colLabel,colItem in val %}
+                                    <h4>{{colLabel}}</h4>
+                                    <ul>
+                                        {% for listItem in colItem %}
+                                        <li>{{listItem}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endfor %}
+                            {% else %}
+                                <p><b>{{item}}:</b> {{val}}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
         <footer>
             {% block footer %}{% endblock footer %}
         </footer>
